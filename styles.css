@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+body{
+    background-color: #f4f4f4;
+}
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: fff;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 20px 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+}
+.logo{
+    font-size: 25px;
+    color: teal;
+    text-decoration: none;
+    font-weight: 700;
+}
+nav .cart-icon{
+    position: relative;
+    font-size: 20px;
+    color: teal;
+    display: flex;
+    text-decoration: none;
+}
+nav .cart-item .cart-item-count{
+    position: absolute;
+    top: 0;
+    right: -6px;
+    color: rgb(245, 241, 241);
+    background: rgb(245, 115, 92);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    display: none;
+}
