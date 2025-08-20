@@ -48,3 +48,27 @@ nav .cart-item .cart-item-count{
     text-align: center;
     display: none;
 }
+.product-collection{
+    padding: 100px 9% 50px;
+}
+.product-collection h1{
+    font-size: 30px;
+    color: #333;
+    margin-bottom: 17px;
+    font-weight: 600;
+    text-align: center;
+}
+.product-collection .product-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+.product-collection .img-box{
+    display: flex;
+    overflow: hidden;
+    cursor: pointer;
+}
+.product-collection .img-box img{
+    width: 100%;
+    transition: transform 0.3s ease;
+}
