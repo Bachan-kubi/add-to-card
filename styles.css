@@ -85,3 +85,75 @@ nav .cart-item .cart-item-count{
     display: block;
     margin-top: 5px;
 }
+.product-detail{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    padding: 130px 9% 30px;
+}
+.product-detail .product-img{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 20px;
+    height: 550px;
+}
+.product-detail .product-img img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.product-detail .thumbnail-img{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.product-detail .thumbnail-img img{
+    height: calc(100% / 4 -9px);
+    cursor: pointer;
+}
+.product-detail .title{
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+.product-detail .ratings i{
+    color: red;
+}
+.product-detail .price{
+    display: block;
+    font-weight: 600;
+    margin: 12px 0;
+}
+.product-detail :is(.size-selection, .color-selection){
+    margin: 20px 0,
+}
+.product-detail :is(.size-selection p, .color-selection p){
+    margin-bottom: 10px 0,
+}
+.product-detail :is(.size-options, .color-options){
+    display: flex;
+    gap: 10px;
+}
+.product-detail .size-options button{
+    width: 45px;
+    height: 45px;
+    background-color: white;
+    border: 7px solid transparent;
+    cursor: pointer;
+}
+.product-detail .color-options img{
+    width: 75px;
+    height: 75px;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+.product-detail .btn-add-to-cart{
+    background: black;
+    color: wheat;
+    padding: 10px 25px;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-size: 17px;
+    cursor: pointer;
+}
