@@ -1,14 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
-</head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cart</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 <body>
-    <main>
-        <h2>This is Cart!</h2>
-    </main>
+    <nav>
+      <a href="index.html" class="logo">Sarangs World!</a>
+      <a href="cart.html" class="cart-icon">
+        <i class="ri-shopping-cart-line"></i>
+        <span class="cart-item">
+          <div class="cart-item-count">00</div>
+        </span>
+      </a>
+    </nav>
+    <div class="cart">
+      <div class="cart-header">
+        <span>Product</span>
+        <span>Price</span>
+        <span>Quantity</span>
+        <span>Total</span>
+        <span>Remove</span>
+      </div>
+      <div class="cart-items">
+      <!-- <div class="cart-item">
+        <div class="product">
+          <img src="./images/product1_green_1.jpg" alt="Green">
+          <div class="item-detail">
+            <p>Man Casual Round Neck T-Shirt</p>
+            <div class="size-color-box">
+              <span class="size">L</span>
+              <span class="color">Green</span>
+            </div>
+          </div>
+        </div>
+        <span class="price">100</span>
+        <div class="quantity">
+          <input type="number" value="1" min="1" />
+        </div>
+        <span class="total-price">200</span>
+        <button class="remove-btn"><i class="ri-delete-bin-line"></i>Remove</button>
+      </div> -->
+      <div class="cart-total">
+        <p>Subtotal:  <span class="Subtotal">0</span></p>
+        <p>Delivery Charge:  <span>Free</span></p>
+        <h3>Grand Total: <span class="grand-total">0</span> </h3>
+        <button class="checkout-btn">Proceed to Checkout</button>
+      </div>
+    </div>
+    </div>
+    
     
 </body>
 </html>
