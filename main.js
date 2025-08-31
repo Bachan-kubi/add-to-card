@@ -1,6 +1,7 @@
 const productContainer = document.querySelector(".product-list");
 const isProductDetails = document.querySelector(".product-detail");
 const isCartPage = document.querySelector(".cart");
+console.log(isCartPage);
 
 //1- if it has product list
 if (productContainer) {
@@ -14,7 +15,6 @@ if (productContainer) {
 //2- display product
 function displayProducts() {
   products.forEach((product) => {
-    console.log(product);
     const productCard = document.createElement("div");
     productCard.classList.add("product-card");
     productCard.innerHTML = `
@@ -28,7 +28,6 @@ function displayProducts() {
     productContainer.appendChild(productCard);
 
     const imgBox = productCard.querySelector(".img-box");
-    console.log(imgBox);
     imgBox.addEventListener("click", () => {
       sessionStorage.setItem("selectProduct", JSON.stringify(product));
       window.location.href = "product-details.html";
@@ -110,8 +109,9 @@ function displayProductDetails() {
   updateProductDisplay(selectedColor);
 
   addToCardBtn.addEventListener("click",()=>{
-    console.log(productData);
-    addToCart(productData, selectedColor, selectedSize)
+    console.log(productData, selectedColor, selectedSize);
+    addToCart(productData, selectedColor, selectedSize);
+    // alert("Item added to cart");
   });
 }
 
@@ -120,7 +120,7 @@ function addToCart(product, color, size){
   let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
   const existingItems = cart.find((item)=>{
-    item.id===product.id && item.color === color.name && item.size === size
+    return item.id===product.id && item.color === color.name && item.size === size
   });
   if(existingItems){
     existingItems.quantity +=1;
@@ -134,9 +134,10 @@ function addToCart(product, color, size){
       image: color.mainImage,
       price: product.price,
 
-    })
+    });
   }
   sessionStorage.setItem("cart", JSON.stringify(cart));
+  console.log("New item added:", existingItems);
 }
 // 4 display cart page
 function displayCart(){
@@ -159,7 +160,7 @@ function displayCart(){
     const cartItem = document.createElement("div");
     cartItem.classList.add("cart-item");
     cartItem.innerHTML = `
-    <div class="cart-item">
+    
         <div class="product">
           <img src="${item.image}">
           <div class="item-detail">
@@ -176,7 +177,7 @@ function displayCart(){
         </div>
         <span class="total-price">${itemTotal}</span>
         <button class="remove-btn" data-id="${index}"><i class="ri-delete-bin-line"></i>Remove</button>
-      </div>
+      
     `;
     cartItemContainer.appendChild(cartItem);
   });
