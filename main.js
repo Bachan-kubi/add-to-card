@@ -148,19 +148,19 @@ function displayCart(){
   const grandTotal = document.querySelector(".grand-total");
   cartItemContainer.innerHTML = "";
   if(cart.length === 0){
-    cartItemContainer.innerHTML = "<p>Your cart is empty</p>";
+    cartItemContainer.innerHTML = "<h2>Your cart is empty</h2>";
     subTotal.textContent = "0.00";
     grandTotal.textContent = "0.00";
     return;
   }
   let subtotal = 0;
   cart.forEach((item, index)=>{
+    // const itemTotal = parseFloat(item.price.replace("$", "")) * item.quantity;
     const itemTotal = parseFloat(item.price.replace("$", "")) * item.quantity;
     subtotal += itemTotal;
     const cartItem = document.createElement("div");
     cartItem.classList.add("cart-item");
     cartItem.innerHTML = `
-    
         <div class="product">
           <img src="${item.image}">
           <div class="item-detail">
@@ -173,7 +173,7 @@ function displayCart(){
         </div>
         <span class="price">${item.price}</span>
         <div class="quantity">
-          <input type="number" value="${item.quantity}" data-id="${index}" min="1" />
+          <input type="number" value="${item.quantity}" data-index="${index}" min="1" />
         </div>
         <span class="total-price">${itemTotal}</span>
         <button class="remove-btn" data-id="${index}"><i class="ri-delete-bin-line"></i>Remove</button>
@@ -184,5 +184,48 @@ function displayCart(){
 
   subtotal.textContent = `${subtotal.toFixed(2)}`;
   grandTotal.textContent = `${subtotal.toFixed(2)}`;
+
+  removeItems();
+  updateCartQuantity();
 }
+
+// function removeItems(){
+//   const removeBtn = document.querySelectorAll(".remove-btn");
+//   removeBtn.addEventListener("click", function (){
+//     const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+//     const itemId = this.getAttribute("data-index");
+//     cart.splice(itemId, 1);
+//     sessionStorage.setItem("cart", JSON.stringify(cart));
+//     displayCart();
+//   });
+// }
+
+function removeItems() {
+  const removeBtns = document.querySelectorAll(".remove-btn");
+  removeBtns.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+      const itemId = this.getAttribute("data-index"); // match attribute with displayCart()
+      cart.splice(itemId, 1);
+      sessionStorage.setItem("cart", JSON.stringify(cart));
+      displayCart();
+    });
+  });
+}
+function updateCartQuantity(){
+  const quantityInputs = document.querySelectorAll(".quantity input");
+  quantityInputs.forEach((input)=>{
+    input.addEventListener("change", function(){
+      const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+      console.log(cart);
+      const index = this.getAttribute("data-index");
+      console.log(index);
+      cart[index].quantity = parseInt(this.value);
+      sessionStorage.setItem('cart',JSON.stringify(cart));
+      displayCart();
+    }
+    )
+  })
+}
+
 
