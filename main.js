@@ -108,23 +108,25 @@ function displayProductDetails() {
   description.textContent = productData.description;
   updateProductDisplay(selectedColor);
 
-  addToCardBtn.addEventListener("click",()=>{
+  addToCardBtn.addEventListener("click", () => {
     console.log(productData, selectedColor, selectedSize);
     addToCart(productData, selectedColor, selectedSize);
     // alert("Item added to cart");
   });
 }
 
-// add button for cart fucntion 
-function addToCart(product, color, size){
+// add button for cart fucntion
+function addToCart(product, color, size) {
   let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
-  const existingItems = cart.find((item)=>{
-    return item.id===product.id && item.color === color.name && item.size === size
+  const existingItems = cart.find((item) => {
+    return (
+      item.id === product.id && item.color === color.name && item.size === size
+    );
   });
-  if(existingItems){
-    existingItems.quantity +=1;
-  }else{
+  if (existingItems) {
+    existingItems.quantity += 1;
+  } else {
     cart.push({
       id: product.id,
       title: product.title,
@@ -133,31 +135,29 @@ function addToCart(product, color, size){
       quantity: 1,
       image: color.mainImage,
       price: product.price,
-
     });
   }
   sessionStorage.setItem("cart", JSON.stringify(cart));
-  console.log("New item added:", existingItems);
+  updateBadge();
 }
 // 4 display cart page
-function displayCart(){
+function displayCart() {
   const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-
   const cartItemContainer = document.querySelector(".cart-items");
   const subTotal = document.querySelector(".subtotal");
   const grandTotal = document.querySelector(".grand-total");
   cartItemContainer.innerHTML = "";
-  if(cart.length === 0){
+  if (cart.length === 0) {
     cartItemContainer.innerHTML = "<h2>Your cart is empty</h2>";
     subTotal.textContent = "0.00";
     grandTotal.textContent = "0.00";
     return;
   }
   let subtotal = 0;
-  cart.forEach((item, index)=>{
-    // const itemTotal = parseFloat(item.price.replace("$", "")) * item.quantity;
+  cart.forEach((item, index) => {
     const itemTotal = parseFloat(item.price.replace("$", "")) * item.quantity;
     subtotal += itemTotal;
+    console.log(subtotal);
     const cartItem = document.createElement("div");
     cartItem.classList.add("cart-item");
     cartItem.innerHTML = `
@@ -176,56 +176,62 @@ function displayCart(){
           <input type="number" value="${item.quantity}" data-index="${index}" min="1" />
         </div>
         <span class="total-price">${itemTotal}</span>
-        <button class="remove-btn" data-id="${index}"><i class="ri-delete-bin-line"></i>Remove</button>
+        <button class="remove-btn" data-index="${index}"><i class="ri-delete-bin-line"></i>Remove</button>
       
     `;
     cartItemContainer.appendChild(cartItem);
   });
 
-  subtotal.textContent = `${subtotal.toFixed(2)}`;
+  subTotal.textContent = `${subtotal.toFixed(2)}`;
   grandTotal.textContent = `${subtotal.toFixed(2)}`;
 
   removeItems();
   updateCartQuantity();
+  updateBadge();
 }
-
-// function removeItems(){
-//   const removeBtn = document.querySelectorAll(".remove-btn");
-//   removeBtn.addEventListener("click", function (){
-//     const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-//     const itemId = this.getAttribute("data-index");
-//     cart.splice(itemId, 1);
-//     sessionStorage.setItem("cart", JSON.stringify(cart));
-//     displayCart();
-//   });
-// }
 
 function removeItems() {
   const removeBtns = document.querySelectorAll(".remove-btn");
   removeBtns.forEach((btn) => {
     btn.addEventListener("click", function () {
       let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-      const itemId = this.getAttribute("data-index"); // match attribute with displayCart()
+      const itemId = this.getAttribute("data-index");
       cart.splice(itemId, 1);
       sessionStorage.setItem("cart", JSON.stringify(cart));
       displayCart();
+      updateBadge();
     });
   });
 }
-function updateCartQuantity(){
+// update product quantity
+function updateCartQuantity() {
   const quantityInputs = document.querySelectorAll(".quantity input");
-  quantityInputs.forEach((input)=>{
-    input.addEventListener("change", function(){
+  quantityInputs.forEach((input) => {
+    input.addEventListener("change", function () {
       const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
       console.log(cart);
       const index = this.getAttribute("data-index");
       console.log(index);
       cart[index].quantity = parseInt(this.value);
-      sessionStorage.setItem('cart',JSON.stringify(cart));
+      sessionStorage.setItem("cart", JSON.stringify(cart));
       displayCart();
-    }
-    )
-  })
+      updateBadge();
+    });
+  });
 }
 
-
+// update bagde
+function updateBadge() {
+  const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const badge = document.querySelector(".cart-item-count");
+  if (badge) {
+    if (cartCount > 0) {
+      badge.textContent = cartCount;
+      badge.style.display = "block";
+    } else {
+      badge.style.display = "none";
+    }
+  }
+}
+updateBadge();
